@@ -11,6 +11,8 @@
 // includes, kernels
 #include "matmul.h"
 
+void tiled_matmul(float*, const float*, const float*, unsigned int, unsigned int);
+
 void matmul(float*, const float*, const float*, unsigned int, unsigned int, 
     unsigned int);
 
@@ -49,6 +51,7 @@ int main(int argc, char** argv) {
   }
   
   matmul(P.elements, M.elements, N.elements, HM, WM, WN);
+  //tiled_matmul(P.elements, M.elements, N.elements, HM, WN);
 
   PrintMat(P);
 
