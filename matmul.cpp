@@ -11,7 +11,7 @@ Matrix Allocate2ndMatrix(int height, int width, int init);
 
 void tiled_matmul(float*, const float*, const float*, uint, uint);
 
-void one_tile(float*, const float*, const float*,  uint, uint, uint);
+void one_tile(float*, const float*, const float*,  uint, uint, uint, uint);
 
 void matmul( float*, const float*, const float*, uint, uint, uint);
 
@@ -68,22 +68,22 @@ Matrix Allocate2ndMatrix(int height, int width)
 void tiled_matmul (float *C, const float *A, const float *B, uint h, uint w) {
    for(uint m = 0; m < h/TILE_WIDTH_SMALL; m++){
       for(uint n = 0; n < w/TILE_WIDTH_SMALL; n++){
-         one_tile(C, A, B, n, m, TILE_WIDTH_SMALL);
+         one_tile(C, A, B, n, m, TILE_WIDTH_SMALL, w);
       }
    }
 }
 
 void one_tile(float *C, const float *A, const float *B, uint tile_xindex,
-   uint tile_yindex, uint tile_width) {
+   uint tile_yindex, uint tile_width, uint mat_width) {
       for(uint j = 0; j < tile_width; j++){
          for(uint i = 0; i < tile_width; i++){
             double sum = 0;
-            for(uint k = 0; k < tile_width; k++){
-               double a = A[(k * tile_width + tile_yindex) * tile_width + i];
-               double b = B[(tile_xindex * tile_width + j) * tile_width + tile_yindex];
+            for(uint k = 0; k < mat_width; k++){
+               double a = A[(tile_yindex * tile_width + i) * mat_width + k];
+		double b = B [(tile_xindex * tile_width + j) * mat_width + k];
                sum += a * b;
             }
-            C[((tile_xindex * tile_width + j) * tile_width + tile_yindex) * tile_width + i] = (float)sum;
+            C[(tile_yindex * tile_width + i) * mat_width + tile_xindex * tile_width + j] = (float)sum;
          }
       }
    }

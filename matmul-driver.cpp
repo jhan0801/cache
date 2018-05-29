@@ -50,8 +50,8 @@ int main(int argc, char** argv) {
     return 1;
   }
   
-  matmul(P.elements, M.elements, N.elements, HM, WM, WN);
-  //tiled_matmul(P.elements, M.elements, N.elements, HM, WN);
+  //matmul(P.elements, M.elements, N.elements, HM, WM, WN);
+  tiled_matmul(P.elements, M.elements, N.elements, HM, WN);
 
   PrintMat(P);
 
