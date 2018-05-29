@@ -57,8 +57,8 @@ Matrix Allocate2ndMatrix(int height, int width)
    * performed. */
 
    //  this is now col major!
-   for(uint j = 0; j < M.width; j++) {
-      for(uint i = 0; i < M.height; i++) {
+   for(uint i = 0; i < M.height; i++) {
+      for(uint j = 0; j < M.width; j++) {
          M.elements[j*M.height + i] = (rand() / (float)RAND_MAX);
       }
    }
