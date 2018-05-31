@@ -13,7 +13,7 @@
 
 void tiled_matmul(float*, const float*, const float*, unsigned int, unsigned int);
 
-void matmul(float*, const float*, const float*, unsigned int, unsigned int, 
+void matmul(float*, const float*, const float*, unsigned int, unsigned int,
     unsigned int);
 
 void PrintMat(Matrix);
@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
   srand(2016);
 
   // Check command line for input matrix files
-  if(argc == 1) 
+  if(argc == 1)
   {
     // No inputs provided
     // Allocate and initialize the matrices
@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     printf("Usage: matmul > outfile\n");
     return 1;
   }
-  
+
   //matmul(P.elements, M.elements, N.elements, HM, WM, WN);
   tiled_matmul(P.elements, M.elements, N.elements, HM, WN);
 
@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
 }
 
 // Allocate a matrix of dimensions height*width
-//	If init == 0, initialize to all zeroes.  
+//	If init == 0, initialize to all zeroes.
 //	If init == 1, perform random initialization.
 Matrix AllocateMatrix(int height, int width, int init)
 {
@@ -83,7 +83,7 @@ Matrix AllocateMatrix(int height, int width, int init)
     M.elements[i] = (init == 0) ? (0.0f) : (rand() / (float)RAND_MAX);
   }
   return M;
-}	
+}
 
 // Write a 16x16 floating point matrix to file
 void PrintMat(Matrix M)
@@ -92,9 +92,9 @@ void PrintMat(Matrix M)
   fprintf(stderr,"Printing Result Matrix:\n");
   for (unsigned int i=0; i<M.height; i++)
   {
-    for (unsigned int j=0; j<M.width; j++) 
+    for (unsigned int j=0; j<M.width; j++)
       fprintf(stdout, "%.2f ", M.elements[i*M.width+j]);
-    fprintf(stdout, "\n"); 
+    fprintf(stdout, "\n");
   }
   fprintf(stderr,"******************************************************\n");
   fprintf(stderr,"Done.\n");

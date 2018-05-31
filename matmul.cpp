@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "matmul.h"
-#define TILE_WIDTH_SMALL 16
-#define TILE_WIDTH_LARGE 32
+#define TILE_WIDTH_SMALL 32
 
 //  by using "typedef", we don't have to write "unsigned int" every single time.
 //  makes our code way more neat!
@@ -38,6 +37,18 @@ void matmul(float* C, const float* A, const float* B, uint hA, uint wA, uint wB)
          }
          C[i * wA + j] = (float)sum;
       }
+
+      /******** original code *****/
+      // for (unsigned int i = 0; i < hA; ++i)
+      //   for (unsigned int j = 0; j < wB; ++j) {
+      //     double sum = 0;
+      //     for (unsigned int k = 0; k < wA; ++k) {
+      //       double a = A[i * wA + k];
+      //       double b = B[k * wB + j];
+      //       sum += a * b;
+      //     }
+      //     C[i * wB + j] = (float)sum;
+      //   }
 }
 
 // Allocate a matrix of dimensions height*width
@@ -56,12 +67,17 @@ Matrix Allocate2ndMatrix(int height, int width)
    * for Matrix B such that a column-major ordering is
    * performed. */
 
-   //  this is now col major!
+  //  this is now col major!
    for(uint i = 0; i < M.height; i++) {
       for(uint j = 0; j < M.width; j++) {
          M.elements[j*M.height + i] = (rand() / (float)RAND_MAX);
       }
    }
+
+  // for(unsigned int i = 0; i < M.height * M.width; i++)
+  // {
+  //   M.elements[i] = (rand() / (float)RAND_MAX);
+  // }
    return M;
 }
 
